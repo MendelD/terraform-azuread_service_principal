@@ -1,4 +1,4 @@
-variable "service_principals" {
+variable "service_principal" {
   description = "A nested list of Service Principals and their configuration"
   type = list(object({                                    # List of Service Principals, one object for each SP.
     display_name       = string                           # Name of the Service Principal.
@@ -27,7 +27,7 @@ variable "service_principals" {
 }
 
 locals {
-  service-principals = flatten([                          # Flattens the nested lists to a list with a depth of 1.
-    for sp in var.service_principals : sp                 # Iterates through all Service Principals and creates a list of them.
+  service-principal = flatten([                          # Flattens the nested lists to a list with a depth of 1.
+    for sp in var.service_principal : sp                 # Iterates through all Service Principals and creates a list of them.
   ])
 }

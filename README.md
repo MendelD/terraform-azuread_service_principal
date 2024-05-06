@@ -53,7 +53,7 @@ data "azuread_user" "sp_owners" {
 module "sp" {
   source = "git@github.com:MendelD/terraform-azuread_service_principal"
 
-  service_principals = [
+  service_principal = [
     {
       display_name = "Salesforce"
       description = "CRM tool for all in sales department"

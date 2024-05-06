@@ -1,14 +1,14 @@
 data "azuread_client_config" "client_config" {} # Data source to access the configuration of the AzureAD provider and adds it as owner of Service Principal
 
 resource "azuread_application" "application" {
-  for_each = { for sp in local.service-principals : sp.display_name => sp }
+  for_each = { for sp in local.service-principal : sp.display_name => sp }
   display_name = each.key
   description = each.value.description
   owners       = concat(each.value.owners != null ? each.value.owners : [], [data.azuread_client_config.client_config.object_id])
 }
 
 resource "azuread_service_principal" "service_principal" {
-  for_each = { for sp in local.service-principals : sp.display_name => sp }
+  for_each = { for sp in local.service-principal : sp.display_name => sp }
   client_id                    = azuread_application.application[each.key].application_id
   description = each.value.description
   account_enabled = each.value.account_enabled
